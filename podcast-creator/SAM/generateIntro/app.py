@@ -7,9 +7,9 @@ import re
 
 def generatePayload(date):
     #construct the prompt
-    payload = """Write an intro for a podcast called The AWS Factor.  
+    payload = """\n\nHuman: Write an intro for a podcast called The AWS Factor.  
     You are the host named Richard and your co-host is named Li.  The Podcast theme is "Latest announcements from AWS".  
-    Include some off topic banter between the hosts.  Mention that today is """+date
+    Include some off topic banter between the hosts.  Mention that today is """+date+"""\n\nAssistant:"""
     return payload
 
 def createDialog(payload,client,modelId):

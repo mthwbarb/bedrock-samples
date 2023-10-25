@@ -5,10 +5,11 @@ import json
 def generatePayload(feed_item):
     feed_item_json = json.loads(feed_item)
     text = feed_item_json['text']
-    payload = """Command: Discuss the following content in the form of a short casual podcast conversation between 2 hosts named Richard and Li.  
+    payload = """\n\nHuman: Discuss the following content in the form of a short casual podcast conversation between 2 hosts named Richard and Li.  
 Because this is one of many topics, do not close out the conversation and do not greet the other host.  
 
-Here is the content: """ + text
+Here is the content: """ + text +"""
+\n\nAssistant:"""
     
     return payload
 
