@@ -1,0 +1,203 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  myFirstLambda
+
+  Sample SAM Template for myFirstLambda
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 120
+    MemorySize: 512
+
+Resources:
+  MyBucket:
+    Type: AWS::S3::Bucket
+  
+  generatePodcastFunction:
+    Type: AWS::Serverless::Function
+    Connectors:
+      BucketConn:
+        Properties:
+          Destination:
+            Id: MyBucket
+          Permissions:
+            - Read
+            - Write
+    Properties:
+      CodeUri: generatePodcast/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+      - !Ref ffmpegLayer
+      Policies:
+      - Statement:
+        - Sid: PollyFullAccess
+          Effect: Allow
+          Action:
+          - polly:*
+          Resource: '*'
+        - Sid: Bedrock
+          Effect: Allow
+          Action:
+          - bedrock:*
+          Resource: '*'
+  generatePptxFunction:
+    Type: AWS::Serverless::Function
+    Connectors:
+      BucketConn:
+        Properties:
+          Destination:
+            Id: MyBucket
+          Permissions:
+            - Read
+            - Write
+    Properties:
+      CodeUri: generatePptx/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Policies:
+      - Statement:
+        - Sid: Bedrock
+          Effect: Allow
+          Action:
+          - bedrock:*
+          Resource: '*'
+  generateJobPostFunction:
+    Type: AWS::Serverless::Function
+    Connectors:
+      BucketConn:
+        Properties:
+          Destination:
+            Id: MyBucket
+          Permissions:
+            - Read
+            - Write
+    Properties:
+      CodeUri: generateJobPost/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Policies:
+      - Statement:
+        - Sid: Bedrock
+          Effect: Allow
+          Action:
+          - bedrock:*
+          Resource: '*'
+
+  ffmpegLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: ffmpegLayer
+      CompatibleRuntimes:
+        - python3.11
+    Metadata:
+      BuildMethod: makefile
+
+   ##Create the Role needed to create a Kendra Index
+  KendraIndexRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service: kendra.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Resource: '*'
+                Condition:
+                  StringEquals:
+                    'cloudwatch:namespace': 'Kendra'
+                Action:
+                  - 'cloudwatch:PutMetricData'
+              - Effect: Allow
+                Resource: '*'
+                Action: 'logs:DescribeLogGroups'
+              - Effect: Allow
+                Resource: !Sub
+                  - 'arn:aws:logs:${region}:${account}:log-group:/aws/kendra/*'
+                  - region: !Ref 'AWS::Region'
+                    account: !Ref 'AWS::AccountId'
+                Action: 'logs:CreateLogGroup'
+              - Effect: Allow
+                Resource: !Sub
+                  - 'arn:aws:logs:${region}:${account}:log-group:/aws/kendra/*:log-stream:*'
+                  - region: !Ref 'AWS::Region'
+                    account: !Ref 'AWS::AccountId'
+                Action: 
+                  - 'logs:DescribeLogStreams'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+          PolicyName: !Join
+            - ''
+            - - !Ref 'AWS::StackName'
+              - '-DocsKendraIndexPolicy'
+      RoleName: !Join
+        - ''
+        - - !Ref 'AWS::StackName'
+          - '-DocsKendraIndexRole'
+      
+  ##Create the Kendra Index
+  DocsKendraIndex:
+    Type: 'AWS::Kendra::Index'
+    Properties:
+      Name: !Join
+        - ''
+        - - !Ref 'AWS::StackName'
+          - '-Index'
+      Edition: 'DEVELOPER_EDITION'
+      RoleArn: !GetAtt KendraIndexRole.Arn
+      DocumentMetadataConfigurations:
+        - Name: _created_at
+          Type: DATE_VALUE
+          Relevance:
+            Importance: 1
+            Duration: 25920000s
+            RankOrder: ASCENDING
+          Search:
+            Facetable: true
+            Searchable: false
+            Displayable: true
+            Sortable: true
+        - Name: _document_title
+          Type: STRING_VALUE
+          Relevance:
+            Importance: 2
+          Search:
+            Facetable: true
+            Searchable: true
+            Displayable: true
+            Sortable: true
+        - Name: _source_uri
+          Type: STRING_VALUE
+          Relevance:
+            Importance: 1
+          Search:
+            Facetable: true
+            Searchable: false
+            Displayable: true
+            Sortable: false
+Outputs:
+  s3Bucket:
+    Description: "S3 Bucket"
+    Value: !Ref MyBucket
+  podcastLambdaFunction:
+    Description: "Podcast Lambda Function"
+    Value: !Ref generatePodcastFunction
+  presentationLambdaFunction:
+    Description: "Presentation Lambda Function"
+    Value: !Ref generatePptxFunction
+  jobPostLambdaFunction:
+    Description: "Job Post Lambda Function"
+    Value: !Ref generateJobPostFunction
+  kendraIndexId:
+    Description: "Kendra Index Id"
+    Value: !Ref DocsKendraIndex

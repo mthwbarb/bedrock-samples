@@ -1,0 +1,8 @@
+{
+  "bucket": "<BUCKET NAME HERE>",
+  "feedUrl": "https://aws.amazon.com/about-aws/whats-new/recent/feed/",
+  "numDays": "3",
+  "llmEndpoint": "<Bedrock Endpoint URL Here>",
+  "bedrockRegion": "us-east-1",
+  "modelId": "<Bedrock Model Identfier ex. anthropic.claude-v2>"
+}

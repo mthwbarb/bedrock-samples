@@ -1,0 +1,142 @@
+[
+  {
+    "topic": "Architecture",
+    "url": "https://aws.amazon.com/blogs/architecture/feed/"
+  },
+  {
+    "topic": "AWS Cost Management",
+    "url": "https://aws.amazon.com/blogs/aws-cost-management/feed/"
+  },
+  {
+    "topic": "AWS Partner Network",
+    "url": "https://aws.amazon.com/blogs/apn/feed/"
+  },
+  {
+    "topic": "AWS News",
+    "url": "https://aws.amazon.com/blogs/aws/feed/"
+  },
+  {
+    "topic": "Big Data",
+    "url": "https://aws.amazon.com/blogs/big-data/feed/"
+  },
+  {
+    "topic": "Business Productivity",
+    "url": "https://aws.amazon.com/blogs/business-productivity/feed/"
+  },
+  {
+    "topic": "Compute",
+    "url": "https://aws.amazon.com/blogs/compute/feed/"
+  },
+  {
+    "topic": "Contact Center",
+    "url": "https://aws.amazon.com/blogs/contact-center/feed/"
+  },
+  {
+    "topic": "Containers",
+    "url": "https://aws.amazon.com/blogs/containers/feed/"
+  },
+  {
+    "topic": "Database",
+    "url": "https://aws.amazon.com/blogs/database/feed/"
+  },
+  {
+    "topic": "Desktop and Application Streaming",
+    "url": "https://aws.amazon.com/blogs/desktop-and-application-streaming/feed/"
+  },
+  {
+    "topic": "Developer",
+    "url": "https://aws.amazon.com/blogs/developer/feed/"
+  },
+  {
+    "topic": "DevOps",
+    "url": "https://aws.amazon.com/blogs/devops/feed/"
+  },
+  {
+    "topic": "Enterprise Strategy",
+    "url": "https://aws.amazon.com/blogs/enterprise-strategy/feed/"
+  },
+  {
+    "topic": "Front-End Web and Mobile",
+    "url": "https://aws.amazon.com/blogs/mobile/feed/"
+  },
+  {
+    "topic": "Game Tech",
+    "url": "https://aws.amazon.com/blogs/gametech/feed/"
+  },
+  {
+    "topic": "HPC",
+    "url": "https://aws.amazon.com/blogs/hpc/feed/"
+  },
+  {
+    "topic": "Infrastructure and Automation",
+    "url": "https://aws.amazon.com/blogs/infrastructure-and-automation/feed/"
+  },
+  {
+    "topic": "Industries",
+    "url": "https://aws.amazon.com/blogs/industries/feed/"
+  },
+  {
+    "topic": "Internet of Things",
+    "url": "https://aws.amazon.com/blogs/iot/feed/"
+  },
+  {
+    "topic": "Machine Learning",
+    "url": "https://aws.amazon.com/blogs/machine-learning/feed/"
+  },
+  {
+    "topic": "Management and Governance",
+    "url": "https://aws.amazon.com/blogs/mt/feed/"
+  },
+  {
+    "topic": "Media",
+    "url": "https://aws.amazon.com/blogs/media/feed/"
+  },
+  {
+    "topic": "Messaging and Targeting",
+    "url": "https://aws.amazon.com/blogs/messaging-and-targeting/feed/"
+  },
+  {
+    "topic": "Networking and Content Delivery",
+    "url": "https://aws.amazon.com/blogs/networking-and-content-delivery/feed/"
+  },
+  {
+    "topic": "Open Source",
+    "url": "https://aws.amazon.com/blogs/opensource/feed/"
+  },
+  {
+    "topic": "Public Sector",
+    "url": "https://aws.amazon.com/blogs/publicsector/feed/"
+  },
+  {
+    "topic": "Quantum Computing",
+    "url": "https://aws.amazon.com/blogs/quantum-computing/feed/"
+  },
+  {
+    "topic": "Robotics",
+    "url": "https://aws.amazon.com/blogs/robotics/feed/"
+  },
+  {
+    "topic": "SAP",
+    "url": "https://aws.amazon.com/blogs/awsforsap/feed/"
+  },
+  {
+    "topic": "Security, Identity, and Compliance",
+    "url": "https://aws.amazon.com/blogs/security/feed/"
+  },
+  {
+    "topic": "Startups",
+    "url": "https://aws.amazon.com/blogs/startups/feed/"
+  },
+  {
+    "topic": "Storage",
+    "url": "https://aws.amazon.com/blogs/storage/feed/"
+  },
+  {
+    "topic": "Training and Certification",
+    "url": "https://aws.amazon.com/blogs/training-and-certification/feed/"
+  },
+  {
+    "topic": "Windows on AWS",
+    "url": "https://aws.amazon.com/blogs/modernizing-with-aws/feed/"
+  }
+]
