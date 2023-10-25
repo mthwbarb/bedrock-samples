@@ -15,7 +15,7 @@ Deployment tested via AWS Cloud9 running Amazon Linux 2 in us-east-1.  Uses Amaz
 3. Python 3.11 (If using Amazon Linux 2 on Cloud9 which only has support for 3.7 and 3.8, you can run the included `updatePython.sh` script to install, make sure to `chmod 777 ./updatePython.sh` first)
 * Note: If you use AWS Cloud9, steps 1, and 2 above are already preinstalled.
 4. An account with access to Bedrock and 3p Models (Anthropic Claude v2). An IAM policy attached to the entity running the Streamlit aplication is also required (See `bedrockPolicy.json`)  
-5. If using Cloud9 in Isengard, you need to attach an IAM role to the EC2 instance with permissions to Bedrock (and other services). THen go to AWS Settings-->Credentials and turn off AWS Managed Temp Credentials.  You may need to stop/start the instance to apply.  You also need to allow Streamlit traffic in the attached security group (TCP port 8501).
+5. If using Cloud9, you need to attach an IAM role to the EC2 instance with permissions to Bedrock (and other services). THen go to AWS Settings-->Credentials and turn off AWS Managed Temp Credentials.  You may need to stop/start the instance to apply.  You also need to allow Streamlit traffic in the attached security group (TCP port 8501).
 
 ## Instructions
 
