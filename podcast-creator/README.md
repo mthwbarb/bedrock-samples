@@ -10,11 +10,11 @@ This repo contains an AWS SAM definition and a sample streamlit app to play your
 3. Python 3.11 (If using Amazon Linux 2 on Cloud9 which only has support for 3.7 and 3.8, you can un the included `updatePython.sh` script to install)
 * Note: If you use AWS Cloud9, steps 2, and 3 above are already preinstalled.
 4. IAM access to Bedrock.  
-5. If using Cloud9 in Isengard, you need to attach an IAM role to the EC2 instance with permissions to Bedrock (and other services). THen go to AWS Settings-->Credentials and turn off AWS Managed Temp Credentials.  You may need to stop/start the instance to apply.
+5. If using Cloud9, you need to attach an IAM role to the EC2 instance with permissions to Bedrock (and other services). THen go to AWS Settings-->Credentials and turn off AWS Managed Temp Credentials.  You may need to stop/start the instance to apply.
 
 ## Instructions
 
-1. Run `setup.sh` to install additional prerequisites including the btot3 SDK which includes Bedrock.
+1. Run `setup.sh` to install additional prerequisites including the boto3 SDK which includes Bedrock.
 2. Navigate to the SAM folder `cd SAM`
 3. Build the SAM package `sam build`
 4. Deploy the package.`sam deploy --guided`  Give your stack a name, and use the region where your SageMaker Endpoint is deployed.  Use the defaults for the rest of the options.
