@@ -73,8 +73,6 @@ Resources:
       CodeUri: generateDialog/
       Handler: app.lambda_handler
       Runtime: python3.11
-      Layers:
-      - !Ref bedrockLayer
       Policies:
       - Statement:
         - Sid: SagemakerInvokeEndpoint
@@ -103,8 +101,6 @@ Resources:
       CodeUri: generateTransitions/
       Handler: app.lambda_handler
       Runtime: python3.11
-      Layers:
-      - !Ref bedrockLayer
       Timeout: 300
       Policies:
       - Statement:
@@ -133,8 +129,6 @@ Resources:
       CodeUri: generatePlaylist/
       Handler: app.lambda_handler
       Runtime: python3.11
-      Layers:
-      - !Ref bedrockLayer
       EphemeralStorage:
         Size: 1024
   
@@ -152,8 +146,6 @@ Resources:
       CodeUri: generateIntro/
       Handler: app.lambda_handler
       Runtime: python3.11
-      Layers:
-      - !Ref bedrockLayer
       Policies:
       - Statement:
         - Sid: PollyFullAccess
@@ -181,8 +173,6 @@ Resources:
       CodeUri: generateOutro/
       Handler: app.lambda_handler
       Runtime: python3.11
-      Layers:
-      - !Ref bedrockLayer
       Policies:
       - Statement:
         - Sid: PollyFullAccess
@@ -210,8 +200,6 @@ Resources:
       CodeUri: generateTopicAudio/
       Handler: app.lambda_handler
       Runtime: python3.11
-      Layers:
-      - !Ref bedrockLayer
       Policies:
       - Statement:
         - Sid: PollyFullAccess
@@ -224,14 +212,6 @@ Resources:
           Action:
           - bedrock:*
           Resource: '*'
-  bedrockLayer:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      ContentUri: bedrockLayer
-      CompatibleRuntimes:
-        - python3.11
-    Metadata:
-      BuildMethod: makefile
           
 Outputs:
   s3Bucket:

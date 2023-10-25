@@ -61,7 +61,7 @@ def lambda_handler(event, context):
         bedrockRegion = event['bedrockRegion']
         modelId = event['modelId']
 
-        bedrock = boto3.client('bedrock', bedrockRegion, endpoint_url=endpoint)
+        bedrock = boto3.client('bedrock-runtime', bedrockRegion, endpoint_url=endpoint)
         s3=boto3.resource('s3')
         bucket = s3.Bucket(bucketname)
         feeditem = bucket.Object(key).get()['Body'].read().decode()

@@ -7,29 +7,29 @@ This repo contains an AWS SAM definition and a sample streamlit app to play your
 
 1. AWS CLI
 2. AWS SAM CLI   see https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html
-3. Python 3.11 (If using Amazon Linux 2 on Cloud9 which only has support for 3.7 and 3.8, you can un the included `updatePython.sh` script to install)
+3. Python 3.11 (If using Amazon Linux 2 on Cloud9 which only has support for 3.7 and 3.8, you can run the included `scripts/updatePython.sh` script to install)
 * Note: If you use AWS Cloud9, steps 2, and 3 above are already preinstalled.
 4. IAM access to Bedrock.  
-5. If using Cloud9, you need to attach an IAM role to the EC2 instance with permissions to Bedrock (and other services). THen go to AWS Settings-->Credentials and turn off AWS Managed Temp Credentials.  You may need to stop/start the instance to apply.
+5. If using Cloud9, you may need to attach an IAM role to the EC2 instance with permissions to Bedrock (and other services). THen go to AWS Settings-->Credentials and turn off AWS Managed Temp Credentials.  You may need to stop/start the instance to apply.
+6. If using Cloud9, you should increase the EBS voume size.  Run the included `scripts/cloud9-resize.sh` script and resize to at least 50GB.
 
 ## Instructions
 
-1. Run `setup.sh` to install additional prerequisites including the boto3 SDK which includes Bedrock.
+1. Run `scripts/setup.sh` to install additional prerequisites including the boto3 SDK which includes Bedrock.
 2. Navigate to the SAM folder `cd SAM`
 3. Build the SAM package `sam build`
 4. Deploy the package.`sam deploy --guided`  Give your stack a name, and use the region where your SageMaker Endpoint is deployed.  Use the defaults for the rest of the options.
 5. The following resources will be deployed: AWS Step Functions State Machine, AWS S3 Bucket, 7 Lambda functions, various IAM roles and policies.
-6. Navigate to the deployed state machine and choose **New Execution**
-7. Open the included `sampleStepFunctionInput.json` file, update the following fields, and save:
+6. Open the included `sampleStepFunctionInput.json` file, update the following fields, and save:
 * Replace the `bucket` with the bucket name deployed by the SAM application
 *  Replace `llmEndpoint` with your Bedrock endpoint.
 *  Replace `numDays` with the number of days from today that you want to process from the RSS feed.
 *  `bedrockRgion` should be the region that cooresponds to the endpoint above
 *  `modelID` is the identifier of the Bedrock model, ex. `anthropic.claude-v2`
-8. Execute the Step Function from the command line: `aws stepfunctions start-execution --state-machine-arn <YOUR STATE MACHINE ARN> --input "$(jq -R . sampleStepFunctionInput.json --raw-output)"`
-9. Depending on the number of new announcements in the time range that you specified in `numDays` and your SageMaker Endpoint instance type, execution can take anywhere from 5-15 minutes or longer.
-10. Monitor the execution by running the command: `aws stepfunctions describe-execution --execution-arn <YOUR EXECUTION ARN>`.  Get the Execution ARN from the output of Step 7.
-11. Once complete, grab the `runID` and `bucket name` from the output of Step 9.  You will need this if you want to run the Streamlit app below.
+7. Execute the Step Function from the command line: `aws stepfunctions start-execution --state-machine-arn <YOUR STATE MACHINE ARN> --input "$(jq -R . sampleStepFunctionInput.json --raw-output)"`
+8. Depending on the number of new announcements in the time range that you specified in `numDays` and your SageMaker Endpoint instance type, execution can take anywhere from 5-15 minutes or longer.
+9. Monitor the execution by running the command: `aws stepfunctions describe-execution --execution-arn <YOUR EXECUTION ARN>`.  Get the Execution ARN from the output of Step 7.
+10. Once complete, grab the `runID` and `bucket name` from the output of Step 9.  You will need this if you want to run the Streamlit app below.
 
 ### Listen to your podcast
 You have 2 options:

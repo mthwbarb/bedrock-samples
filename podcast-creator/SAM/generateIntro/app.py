@@ -86,7 +86,7 @@ def lambda_handler(event, context):
         
         print("runId: " +runId)
         print("Bucket: "+bucketName)
-        bedrock = boto3.client('bedrock', bedrockRegion, endpoint_url=endpoint)
+        bedrock = boto3.client('bedrock-runtime', bedrockRegion, endpoint_url=endpoint)
         s3=boto3.resource('s3')
         today = date.today()
         todayDate = today.strftime("%B %d, %Y")

@@ -2,3 +2,4 @@ requests
 beautifulsoup4
 feedparser
 datetime
+boto3>=1.28.57

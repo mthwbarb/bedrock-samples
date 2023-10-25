@@ -94,7 +94,7 @@ def lambda_handler(event, context):
     
         print("runId: " +runId)
         print("Bucket: "+bucketname)
-        bedrock = boto3.client('bedrock', bedrockRegion, endpoint_url=endpoint)
+        bedrock = boto3.client('bedrock-runtime', bedrockRegion, endpoint_url=endpoint)
         s3=boto3.resource('s3')
         bucket = s3.Bucket(bucketname)
         manifestObject = bucket.Object(runId + '/manifest.json').get()['Body'].read().decode('utf-8')
