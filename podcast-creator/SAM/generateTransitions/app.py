@@ -8,9 +8,10 @@ def generatePayload(category):
     #grab the category friendly name
     catvalue = next(iter(category.values()))
     #construct the prompt
-    payload = """Create a short conversation between 2 podcast hosts named Richard and Li.  The Podcast name is "The AWS Factor" and the theme is "What's new from AWS".  This is not the beginning of the show.  
+    payload = """\n\nHuman: Create a short conversation between 2 podcast hosts named Richard and Li.  The Podcast name is "The AWS Factor" and the theme is "What's new from AWS".  This is not the beginning of the show.  
     Do not mention previous discussion and do not go into any detail about the topic.  
-    Rephrase: Now we are going to talk about """+catvalue+""" , so let's dive in. """
+    Rephrase: Now we are going to talk about """+catvalue+""" , so let's dive in.
+    \n\nAssistant:"""
     return payload
 
 def createDialog(payload,client,modelId):
