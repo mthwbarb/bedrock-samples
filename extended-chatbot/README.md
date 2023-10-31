@@ -20,7 +20,7 @@ Deployment tested via AWS Cloud9 running Amazon Linux 2 in us-east-1.  Uses Amaz
 
 ## Instructions
 
-1. Run `./scripts/setup.sh` to install additional prerequisites including the boto3 SDK which includes Bedrock.
+1. Run `./scripts/setup.sh` to install additional prerequisites.
 2. Navigate to the SAM folder `cd SAM`
 3. Build the SAM package `sam build`
 4. Deploy the package.`sam deploy --capabilities CAPABILITY_NAMED_IAM --guided`  Give your stack a name, and use the region where Bedrock is deployed.  Use the defaults for the rest of the options.
@@ -28,7 +28,7 @@ Deployment tested via AWS Cloud9 running Amazon Linux 2 in us-east-1.  Uses Amaz
 6. Note the outputs from the SAM deployment, you will need the Lambda Function names, the S3 bucket name, and the Kendra Index ID for subsequent steps.
 7. Navigate up one folder `cd ..`
 8. Load the AWS Blogs data into Kendra.  The RSS feed list is stored in `feeds.json`.  Run `python3.11 ./scripts/loadData.py <kendraIndexId>`.  Substitue <kendraIndexId> with the ID that you copied from the SAM deployment output in step 4.
-9. Run `python uploadThemeMusic.py <bucketName>` with the bucket from the stack to copy the files in the `audio` to the bucket into the `themes/` prefix.
+9. Run `python3.11 ./scripts/uploadThemeMusic.py <bucketName>` with the bucket from the stack to copy the files in the `audio` to the bucket into the `themes/` prefix.
 10. Navigate to the `streamlit` folder. `cd streamlit`
 11. Open `streamlitapp.py` with your editor and update the 5 variables using the outputs from step 4.
 12. Run the Streamlit app using the Bedrock Claudev2 model. `streamlit run streamlitapp.py bedrock_claudev2`
